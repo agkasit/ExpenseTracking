@@ -1,0 +1,270 @@
+﻿@model Repository.Entities.Expense
+
+@{
+    ViewBag.Title = "Create";
+
+    string title_page = "NEW EXPENSE";
+    string title_btn_submit = "ADD EXPENSE";
+    if (Model.id > 0) {
+        title_page = "EDIT EXPENSE";
+        title_btn_submit = "SAVE";
+    }
+}
+@*@using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Expense</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.submited, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.submited, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.submited, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.category_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.HiddenFor(model => model.category_id, new { htmlAttributes = new { @class = "form-control" } })
+                    <select class="js-example-basic-single form-control" id="sel_category_id" name="state">
+                    </select>
+                    @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.supplier_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.supplier_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.supplier_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.due_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.due_date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.due_date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.paid_date, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.paid_date, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.paid_date, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.get_receipt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.get_receipt)
+                        @Html.ValidationMessageFor(model => model.get_receipt, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }*@
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+        padding-left: 10%;
+    }
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        /* font-weight: bold; */
+    }
+</style>
+<div class="panel panel-default">
+    <h4 style="padding-left:20px;"><b>@title_page</b></h4>
+    <form class="panel-body form-horizontal payment-form" id="form">
+        <input type="hidden" id="expense_id" name="expense_id" value="@Model.expense_id" />
+        <div class="form-group">
+            <label for="submited" class="col-sm-3 control-label text-left">Submitted Date</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="submited" name="submited" value="@Model.submited">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="category_id" class="col-sm-3 control-label text-left" ">Category</label>
+            <div class="col-sm-9">
+                <select class="js-example-basic-single form-control" id="category_id" name="category_id"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="supplier_id" class="col-sm-3 control-label text-left" ">Supplier</label>
+            <div class="col-sm-9">
+                <select class="js-example-basic-single form-control" id="supplier_id" name="supplier_id"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-3 control-label text-left">Description</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="description" name="description" value="@Model.description">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="amount" class="col-sm-3 control-label">Amount</label>
+            <div class="col-sm-9">
+                <input type="number" class="form-control" min="0" id="amount" name="amount" value="@Model.amount">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="due_date" class="col-sm-3 control-label text-left">Due Date</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="due_date" name="due_date" value="@Model.due_date">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="paid_date" class="col-sm-3 control-label">Paid Date</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="paid_date" name="paid_date" value="@Model.paid_date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-3 control-label">Withholding Tax</label>
+            <div class="col-sm-9">
+                <div class="checkbox">
+                    <input type="checkbox" id="withholding_tax" name="withholding_tax" value="@Model.withholding_tax.ToString().ToLower()"/>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="date" class="col-sm-3 control-label">Get Receipt</label>
+            <div class="col-sm-9">
+                <div class="checkbox">
+                    <input type="checkbox" id="get_receipt" name="get_receipt" value="@Model.get_receipt.ToString().ToLower()" />
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="receipt_format" class="col-sm-3 control-label">Receipt Format</label>
+            <div class="col-sm-9">
+                <select class="form-control" id="receipt_format" name="receipt_format" disabled>
+                    <option value="file">File</option>
+                    <option value="paper">Paper</option>
+                    <option value="doc">WHT Doc</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 col-lg-offset-3">
+                <button type="submit" class="btn btn-success">
+                    @title_btn_submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+<script>
+        var table;
+        var _host = "";
+
+        $.datepicker.setDefaults({
+            dateFormat: 'dd-mm-yy'
+        });
+
+        $(function () {
+
+            $.get(_host + "/Expense/GetListCategory", function (res) {
+                var sel = $("#category_id").select2({
+                    data: res.data
+                });
+                sel.val('@Model.category_id').trigger("change");
+            });
+
+            //GetListSupplier
+            $.get(_host + "/Supplier/GetListSupplier", function (res) {
+                var sel = $("#supplier_id").select2({
+                    data: res.data
+                });
+                sel.val('@Model.supplier_id').trigger("change");
+            });
+
+            $("#submited").datepicker();
+            $("#due_date").datepicker();
+            $("#paid_date").datepicker();
+
+            if (@Model.id == 0) {
+                $('#submited').datepicker('setDate', new Date());
+            }
+            $("#withholding_tax").prop("checked", '@Model.withholding_tax' == 'True' ? true : false);
+
+            $('#withholding_tax').change(function (e) {
+                $(this).val($(this).is(":checked"));       
+            });
+
+            $("#get_receipt").prop("checked", '@Model.get_receipt'=='True' ? true : false);
+
+            $("#receipt_format").attr("disabled", '@Model.get_receipt' == 'True' ? false : true);
+            $('#get_receipt').change(function (e) {
+                $(this).val($(this).is(":checked"));
+                $("#receipt_format").attr("disabled", !$(this).is(":checked"));
+            });
+
+            $("#receipt_format").val('@Model.receipt_format');
+
+            $("#form").validate({
+                rules: {
+                    submited: { required: true },
+                    category_id: { required: true },
+                    supplier_id: { required: true }
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+                submitHandler: function (e) {
+                    console.log($("#form").serialize());
+
+                    $.post(_host + "/Expense/ExpenseUpdate", $("#form").serialize(), function (res) {
+                        console.log("res", res);
+                        if (res.status == true) {
+                            location.href = _host + "/Expense";
+                        }
+                    });
+                }
+            });
+
+
+
+        });
+</script>
+}

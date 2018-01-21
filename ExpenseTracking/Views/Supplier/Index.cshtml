@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+<div class="table-container">
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th style="width:10px;">#</th>
+                <th>Supplier Name</th>
+                <th>Tax ID</th>
+                <th>Contact</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="5" class="dataTables_empty">no data...
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        var table;
+        var _host = "";
+        $(function () {
+
+            console.log("slide",$("#sidebar-menu li#poi"));
+            $("#sidebar-menu li#poi").addClass("active open");
+            $("#sidebar-menu li#brand").addClass("active open");
+
+            //GetListProducts
+            table = $('#example').dataTable({
+                "bProcessing": true,
+                "bServerSide": true,
+                "bRetrieve": false,
+                "bPaginate": true,
+                //"sPaginationType": "full_numbers",
+                "sAjaxSource": _host + "/Supplier/ListSupplierForDatatables",
+                "fnServerParams": function (aoData) {
+
+                    //aoData.push({
+                    //    "name": "category_id",
+                    //    "value": $("#category_id option:selected").val()
+                    //});
+                },
+                "fnDrawCallback": function (oSettings) {
+                    // $('ui.button').popup();
+                    //console.log("fnDrawCallback");
+                },
+                "aoColumns": [
+                       {
+                            "mData": "id",
+                           "bSearchable": false,
+                           "bSortable": false
+                       },
+                         {
+                             "mData": "supplier_name",
+                             "bSearchable": false,
+                             "bSortable": false
+                       },
+                         {
+                             "mData": "tax_id",
+                             "bSearchable": false,
+                             "bSortable": false
+                         },
+                        {
+                            "mData": "contact",
+                            "bSearchable": false,
+                            "bSortable": false
+                         },
+                        {
+                            "mData": "phone",
+                            "bSearchable": false,
+                            "bSortable": false
+                        },
+                        {
+                            "mData": "email",
+                            "bSearchable": false,
+                            "bSortable": false
+                        }
+                ]
+            });
+        });
+    </script>
+}
+
+
+
+

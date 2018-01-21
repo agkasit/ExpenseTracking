@@ -1,0 +1,9 @@
+C:\TestProject\ExpenseTracking\Utilities\bin\Debug\Utilities.dll
+C:\TestProject\ExpenseTracking\Utilities\bin\Debug\Utilities.pdb
+C:\TestProject\ExpenseTracking\Utilities\bin\Debug\RestSharp.dll
+C:\TestProject\ExpenseTracking\Utilities\bin\Debug\System.ValueTuple.dll
+C:\TestProject\ExpenseTracking\Utilities\bin\Debug\System.ValueTuple.xml
+C:\TestProject\ExpenseTracking\Utilities\obj\Debug\Utilities.csproj.CoreCompileInputs.cache
+C:\TestProject\ExpenseTracking\Utilities\obj\Debug\Utilities.dll
+C:\TestProject\ExpenseTracking\Utilities\obj\Debug\Utilities.pdb
+C:\TestProject\ExpenseTracking\Utilities\obj\Debug\Utilities.csprojResolveAssemblyReference.cache

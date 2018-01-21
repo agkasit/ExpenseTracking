@@ -1,0 +1,16 @@
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\Repository.dll.config
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\Repository.dll
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\Repository.pdb
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\EntityFramework.dll
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\Utilities.dll
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\RestSharp.dll
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\System.ValueTuple.dll
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\Utilities.pdb
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\EntityFramework.xml
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\TestProject\ExpenseTracking\Repository\bin\Debug\System.ValueTuple.xml
+C:\TestProject\ExpenseTracking\Repository\obj\Debug\Repository.csprojResolveAssemblyReference.cache
+C:\TestProject\ExpenseTracking\Repository\obj\Debug\Repository.csproj.CoreCompileInputs.cache
+C:\TestProject\ExpenseTracking\Repository\obj\Debug\Repository.dll
+C:\TestProject\ExpenseTracking\Repository\obj\Debug\Repository.pdb

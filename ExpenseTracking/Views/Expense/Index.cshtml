@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="panel panel-default">
+    
+    <div class="panel-body">
+
+        <a href="/Expense/Create/0" type="submit" class="btn btn-success" style="padding-left:20px;">
+            <span class="glyphicon glyphicon-plus"></span>  New Expense
+        </a>
+
+        <div class="table-container" style="padding-top:20px;">
+            <table id="example" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="width:10px;">ID</th>
+                        <th>Submited</th>
+                        <th>Category</th>
+                        <th>Supplier</th>
+                        <th>Description</th>
+                        <th>Amount</th>
+                        <th>Due Date</th>
+                        <th>Paid</th>
+                        <th>Receipt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="dataTables_empty">no data...
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        var table;
+        var _host = "";
+        $(function () {
+
+            console.log("slide", $("#sidebar-menu li#poi"));
+            $("#sidebar-menu li#poi").addClass("active open");
+            $("#sidebar-menu li#brand").addClass("active open");
+
+            //GetListProducts
+            table = $('#example').dataTable({
+                "bProcessing": true,
+                "bServerSide": true,
+                "bRetrieve": false,
+                "bPaginate": true,
+                //"sPaginationType": "full_numbers",
+                "sAjaxSource": _host + "/Expense/ListExpenseForDatatables",
+                "fnServerParams": function (aoData) {
+
+                    //aoData.push({
+                    //    "name": "category_id",
+                    //    "value": $("#category_id option:selected").val()
+                    //});
+                },
+                "fnDrawCallback": function (oSettings) {
+                    // $('ui.button').popup();
+                    //console.log("fnDrawCallback");
+                },
+                "aoColumns": [
+                    {
+                        "mData": "id",
+                        "bSearchable": false,
+                        "bSortable": false,
+                        "mRender": function (data, type, obj) {
+                            //var data = oObj.aData;
+                            //console.log("obj", obj);
+                            //console.log("data", data);
+                            var link = _host + "/Expense/Create/" + obj.expense_id;
+
+                            // var action = '<a class="btn-flat  btn-sm btn-info" href="' + link + '" data-toggle="tooltip" title="แก้ไข"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>' +
+                            //              '<a class="btn-flat  btn-sm btn-danger delete" href="#" data-id="' + data.id + '" data-name="' + data.name + '" data-toggle="tooltip" title="ลบ"><b><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></b></a>';
+                            return '<a href="' + link + '" tooltip="Edit">' + data + '</a>';
+                        }
+                    },
+                    {
+                        "mData": "submited",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "category_name",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "supplier_name",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "description",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "amount",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "due_date",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "paid_date",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "get_receipt",
+                        "bSearchable": false,
+                        "bSortable": false,
+                        "mRender": function (data) {
+                            //var data = oObj.aData;
+                            // var link = _host + "/Expense/Create/" + data.id;
+
+                            // var action = '<a class="btn-flat  btn-sm btn-info" href="' + link + '" data-toggle="tooltip" title="แก้ไข"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>' +
+                            //              '<a class="btn-flat  btn-sm btn-danger delete" href="#" data-id="' + data.id + '" data-name="' + data.name + '" data-toggle="tooltip" title="ลบ"><b><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></b></a>';
+                            return data;
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}
+
+
