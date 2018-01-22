@@ -2,28 +2,32 @@
 @{
     ViewBag.Title = "Index";
 }
+<div class="panel panel-default">
+    <div class="panel-body">
 
-<h2>Index</h2>
-
-
-<div class="table-container">
-    <table id="example" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th style="width:10px;">#</th>
-                <th>Supplier Name</th>
-                <th>Tax ID</th>
-                <th>Contact</th>
-                <th>Phone</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td colspan="5" class="dataTables_empty">no data...
-            </tr>
-        </tbody>
-    </table>
+        <a href="/Supplier/Create/0" type="submit" class="btn btn-success" style="padding-left:20px;">
+            <span class="glyphicon glyphicon-plus"></span>  New Supplier
+        </a>
+        <div class="table-container" style="padding-top:20px;">
+            <table id="example" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="width:10px;">ID</th>
+                        <th>Supplier Name</th>
+                        <th>Tax ID</th>
+                        <th>Contact</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="5" class="dataTables_empty">no data...
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 @section Scripts {
@@ -31,10 +35,6 @@
         var table;
         var _host = "";
         $(function () {
-
-            console.log("slide",$("#sidebar-menu li#poi"));
-            $("#sidebar-menu li#poi").addClass("active open");
-            $("#sidebar-menu li#brand").addClass("active open");
 
             //GetListProducts
             table = $('#example').dataTable({
@@ -56,36 +56,40 @@
                     //console.log("fnDrawCallback");
                 },
                 "aoColumns": [
-                       {
-                            "mData": "id",
-                           "bSearchable": false,
-                           "bSortable": false
-                       },
-                         {
-                             "mData": "supplier_name",
-                             "bSearchable": false,
-                             "bSortable": false
-                       },
-                         {
-                             "mData": "tax_id",
-                             "bSearchable": false,
-                             "bSortable": false
-                         },
-                        {
-                            "mData": "contact",
-                            "bSearchable": false,
-                            "bSortable": false
-                         },
-                        {
-                            "mData": "phone",
-                            "bSearchable": false,
-                            "bSortable": false
-                        },
-                        {
-                            "mData": "email",
-                            "bSearchable": false,
-                            "bSortable": false
+                    {
+                        "mData": "rowid",
+                        "bSearchable": false,
+                        "bSortable": false,
+                        "mRender": function (data, type, obj) {
+                            var link = _host + "/Supplier/Create/" + obj.supplier_id;
+                            return '<a href="' + link + '" tooltip="Edit">' + data + '</a>';
                         }
+                    },
+                    {
+                        "mData": "supplier_name",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "tax_id",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "contact",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "phone",
+                        "bSearchable": false,
+                        "bSortable": false
+                    },
+                    {
+                        "mData": "email",
+                        "bSearchable": false,
+                        "bSortable": false
+                    }
                 ]
             });
         });

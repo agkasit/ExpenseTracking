@@ -10,89 +10,7 @@
         title_btn_submit = "SAVE";
     }
 }
-@*@using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            <h4>Expense</h4>
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.submited, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.submited, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.submited, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.category_id, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.HiddenFor(model => model.category_id, new { htmlAttributes = new { @class = "form-control" } })
-                    <select class="js-example-basic-single form-control" id="sel_category_id" name="state">
-                    </select>
-                    @Html.ValidationMessageFor(model => model.category_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.supplier_id, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.supplier_id, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.supplier_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.due_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.due_date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.due_date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.paid_date, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.paid_date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.paid_date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.get_receipt, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <div class="checkbox">
-                        @Html.EditorFor(model => model.get_receipt)
-                        @Html.ValidationMessageFor(model => model.get_receipt, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.amount, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.amount, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.amount, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }*@
 <style>
     .form-horizontal .control-label {
         text-align: left;
@@ -111,7 +29,7 @@
         <div class="form-group">
             <label for="submited" class="col-sm-3 control-label text-left">Submitted Date</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="submited" name="submited" value="@Model.submited">
+                <input type="text" class="form-control" id="submited" name="submited" placeholder="dd-mm-yyyy" value="@Model.submited">
             </div>
         </div>
         <div class="form-group">
@@ -121,7 +39,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="supplier_id" class="col-sm-3 control-label text-left" ">Supplier</label>
+            <label for="supplier_id" class="col-sm-3 control-label text-left">Supplier</label>
             <div class="col-sm-9">
                 <select class="js-example-basic-single form-control" id="supplier_id" name="supplier_id"></select>
             </div>
@@ -141,14 +59,14 @@
         <div class="form-group">
             <label for="due_date" class="col-sm-3 control-label text-left">Due Date</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="due_date" name="due_date" value="@Model.due_date">
+                <input type="text" class="form-control" id="due_date" name="due_date" placeholder="dd-mm-yyyy" value="@Model.due_date">
             </div>
         </div>
 
         <div class="form-group">
             <label for="paid_date" class="col-sm-3 control-label">Paid Date</label>
             <div class="col-sm-9">
-                <input type="text" class="form-control" id="paid_date" name="paid_date" value="@Model.paid_date">
+                <input type="text" class="form-control" id="paid_date" name="paid_date" placeholder="dd-mm-yyyy" value="@Model.paid_date">
             </div>
         </div>
         <div class="form-group">
@@ -171,9 +89,9 @@
             <label for="receipt_format" class="col-sm-3 control-label">Receipt Format</label>
             <div class="col-sm-9">
                 <select class="form-control" id="receipt_format" name="receipt_format" disabled>
-                    <option value="file">File</option>
-                    <option value="paper">Paper</option>
-                    <option value="doc">WHT Doc</option>
+                    <option value="File">File</option>
+                    <option value="Paper">Paper</option>
+                    <option value="WHT_Doc">WHT Doc</option>
                 </select>
             </div>
         </div>

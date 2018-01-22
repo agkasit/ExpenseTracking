@@ -53,9 +53,9 @@ namespace ExpenseTracking.Controllers
                 {
                     
                     param.submited = DateFormate.DatePickerToDateForDB(param.submited);
-                    param.due_date = DateFormate.DatePickerToDateForDB(param.submited);
+                    param.due_date = DateFormate.DatePickerToDateForDB(param.due_date);
                     param.paid_date = DateFormate.DatePickerToDateForDB(param.paid_date);
-                    param.receipt_format = (param.get_receipt == true) ? param.receipt_format.ToLower() : string.Empty;
+                    param.receipt_format = (param.get_receipt == true) ? param.receipt_format : string.Empty;
                     _context.Expense.Add(param);
                     _context.SaveChanges();
 
@@ -79,7 +79,8 @@ namespace ExpenseTracking.Controllers
                     updateModel.paid_date = DateFormate.DatePickerToDateForDB(param.paid_date);
                     updateModel.withholding_tax = param.withholding_tax;
                     updateModel.get_receipt = param.get_receipt;
-                    updateModel.receipt_format = (param.get_receipt == true ) ? param.receipt_format.ToLower() : string.Empty;
+                    updateModel.receipt_format = (param.get_receipt == true ) ? param.receipt_format: string.Empty;
+                    updateModel.setUpdateDate();
                     _context.Entry(updateModel).State = EntityState.Modified;
                     _context.SaveChanges();
 
@@ -151,15 +152,25 @@ namespace ExpenseTracking.Controllers
                 var query = (from e in _context.Expense
                              join c in _context.Category on e.category_id equals c.id
                              join s in _context.Supplier on e.supplier_id equals s.id
-                             join b in _context.Bank on s.bank_id equals b.id
-
+                             //join b in _context.Bank on s.bank_id equals b.id
                              select new
                              {
                                  expense = e,
                                  category = c,
                                  supplier = s,
-                                 bank = b
+                                 //bank = b
                              });
+
+                if (param.unpaid)
+                {
+                    query = query.Where(x => x.expense.paid_date == null || x.expense.paid_date == "");
+                }
+
+                if (param.not_get_receipt) {
+                    query = query.Where(x => x.expense.get_receipt == false);
+                }
+
+                query = query.OrderBy(x => x.expense.submited);
 
                 var list = query.AsEnumerable().Select((v, index) => new
                 {
@@ -172,17 +183,24 @@ namespace ExpenseTracking.Controllers
                     amount = String.Format("{0:0,0.00}", v.expense.amount),
                     due_date = DateFormate.DateForSortDate(v.expense.due_date),
                     paid_date = DateFormate.DateForSortDate(v.expense.paid_date),
+                    receipt_format = v.expense.receipt_format,
                     v.expense.get_receipt,
+                    update_date = v.expense.update_date,
                     rowid = index + 1
                 });
 
+                
+
                 if (!string.IsNullOrEmpty(param.sSearch))
                 {
-                    list = list.Where(x => x.submited.ToLower().Contains(param.sSearch.ToLower()));
+                    list = list.Where(x => x.submited.ToLower().Contains(param.sSearch.ToLower()) || x.supplier_name.ToLower().Contains(param.sSearch.ToLower()));
                 }
 
                 int total = list.Count();
-                list = list.OrderBy(x => x.rowid).Skip(param.iDisplayStart).Take(param.iDisplayLength);
+                
+
+                list = list.OrderBy(x=>x.rowid).Skip(param.iDisplayStart).Take(param.iDisplayLength);
+
 
                 var jsonResult = Json(new
                 {

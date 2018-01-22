@@ -65,5 +65,11 @@ CREATE TABLE [dbo].[Expense](
             this.supplier_id = 1;
         }
 
+        public void setUpdateDate()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            this.update_date = DateTime.Parse(Digix.Utilites.Utility.GetDateTimeNow().ToString(), new System.Globalization.CultureInfo("en-US"));
+        }
+
     }
 }

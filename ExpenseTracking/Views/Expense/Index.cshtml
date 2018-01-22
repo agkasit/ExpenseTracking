@@ -2,14 +2,21 @@
 @{
     ViewBag.Title = "Index";
 }
-<div class="panel panel-default">
-    
+<div class="panel panel-default"> 
     <div class="panel-body">
 
         <a href="/Expense/Create/0" type="submit" class="btn btn-success" style="padding-left:20px;">
             <span class="glyphicon glyphicon-plus"></span>  New Expense
         </a>
+        <div style="padding-top:20px;">
 
+            <div class="checkbox-inline">
+                <input type="checkbox" id="unpaid" name="unpaid" /> <label for="unpaid">Unpaid</label>
+            </div>
+            <div class="checkbox-inline">
+                <input type="checkbox" id="not_get_receipt" name="not_get_receipt" /> <label for="not_get_receipt">Not get receipt</label>
+            </div>
+        </div>
         <div class="table-container" style="padding-top:20px;">
             <table id="example" class="display" cellspacing="0" width="100%">
                 <thead>
@@ -56,10 +63,16 @@
                 "sAjaxSource": _host + "/Expense/ListExpenseForDatatables",
                 "fnServerParams": function (aoData) {
 
-                    //aoData.push({
-                    //    "name": "category_id",
-                    //    "value": $("#category_id option:selected").val()
-                    //});
+                    aoData.push({
+                        "name": "unpaid",
+                        "value": $('#unpaid').is(":checked")
+                    });
+
+                    //not_get_receipt
+                    aoData.push({
+                        "name": "not_get_receipt",
+                        "value": $('#not_get_receipt').is(":checked")
+                    });
                 },
                 "fnDrawCallback": function (oSettings) {
                     // $('ui.button').popup();
@@ -67,17 +80,11 @@
                 },
                 "aoColumns": [
                     {
-                        "mData": "id",
+                        "mData": "rowid",
                         "bSearchable": false,
                         "bSortable": false,
                         "mRender": function (data, type, obj) {
-                            //var data = oObj.aData;
-                            //console.log("obj", obj);
-                            //console.log("data", data);
                             var link = _host + "/Expense/Create/" + obj.expense_id;
-
-                            // var action = '<a class="btn-flat  btn-sm btn-info" href="' + link + '" data-toggle="tooltip" title="แก้ไข"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>' +
-                            //              '<a class="btn-flat  btn-sm btn-danger delete" href="#" data-id="' + data.id + '" data-name="' + data.name + '" data-toggle="tooltip" title="ลบ"><b><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></b></a>';
                             return '<a href="' + link + '" tooltip="Edit">' + data + '</a>';
                         }
                     },
@@ -120,17 +127,34 @@
                         "mData": "get_receipt",
                         "bSearchable": false,
                         "bSortable": false,
-                        "mRender": function (data) {
-                            //var data = oObj.aData;
-                            // var link = _host + "/Expense/Create/" + data.id;
+                        "mRender": function (data, type, obj) {
 
-                            // var action = '<a class="btn-flat  btn-sm btn-info" href="' + link + '" data-toggle="tooltip" title="แก้ไข"><i class="fa fa-pencil-square-o" aria-hidden="true"> Edit</i></a>' +
-                            //              '<a class="btn-flat  btn-sm btn-danger delete" href="#" data-id="' + data.id + '" data-name="' + data.name + '" data-toggle="tooltip" title="ลบ"><b><i class="fa fa-trash-o" aria-hidden="true"> Delete</i></b></a>';
-                            return data;
+                            if (data == true) {
+                                return '<span class="glyphicon glyphicon-ok text-success"></span> ' + obj.receipt_format.replace('_', ' ');
+                            }
+                            return "";
+                            
                         }
                     }
                 ]
             });
+
+
+            $('.checkbox-inline input').change(function (e) {
+                $(this).val($(this).is(":checked"));
+                table.fnDraw();
+            });
+
+            //label
+            $('.checkbox-inline input').change(function (e) {
+                $(this).val($(this).is(":checked"));
+                table.fnDraw();
+            });
+
+            //$(".checkbox-inline #not_get_receipt").change(function (e) {
+            //    $(this).val($(this).is(":checked"));
+            //    table.fnDraw();
+            //});
         });
     </script>
 }

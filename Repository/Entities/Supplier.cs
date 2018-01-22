@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Repository.Entities
@@ -45,6 +47,18 @@ namespace Repository.Entities
 
         [NotMapped]
         public string supplier_id { set; get; }
+
+        public Supplier()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            this.create_date = DateTime.Parse(Digix.Utilites.Utility.GetDateTimeNow().ToString(), new System.Globalization.CultureInfo("en-US"));
+            this.update_date = this.create_date;
+        }
+
+        public void setUpdateDate() {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+            this.update_date = DateTime.Parse(Digix.Utilites.Utility.GetDateTimeNow().ToString(), new System.Globalization.CultureInfo("en-US"));
+        }
 
     }
 }

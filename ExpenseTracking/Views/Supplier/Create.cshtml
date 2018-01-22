@@ -1,0 +1,135 @@
+﻿@model Repository.Entities.Supplier
+
+@{
+    ViewBag.Title = "Create";
+
+    string title_page = "NEW SUPPLIER";
+    string title_btn_submit = "ADD SUPPLIER";
+    if (Model.id > 0)
+    {
+        title_page = "EDIT SUPPLIER";
+        title_btn_submit = "SAVE";
+    }
+}
+
+<style>
+    .form-horizontal .control-label {
+        text-align: left;
+        padding-left: 10%;
+    }
+
+    label {
+        display: inline-block;
+        margin-bottom: 5px;
+        /* font-weight: bold; */
+    }
+</style>
+<div class="panel panel-default">
+    <h4 style="padding-left:20px;"><b>@title_page</b></h4>
+    <form class="panel-body form-horizontal payment-form" id="form">
+        <input type="hidden" id="supplier_id" name="supplier_id" value="@Model.supplier_id" />
+        <div class="form-group">
+            <label for="supplier_name" class="col-sm-3 control-label text-left">Supplier Name *</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="supplier_name" name="supplier_name" value="@Model.supplier_name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="tax_id" class="col-sm-3 control-label text-left">Tax ID</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="tax_id" name="tax_id" value="@Model.tax_id">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="contact" class="col-sm-3 control-label text-left">Contact</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="contact" name="contact" value="@Model.contact">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="phone" class="col-sm-3 control-label text-left">Phone *</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="phone" name="phone" value="@Model.phone">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-sm-3 control-label text-left">Email *</label>
+            <div class="col-sm-9">
+                <input type="email" class="form-control" id="email" name="email" value="@Model.email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="supplier_id" class="col-sm-3 control-label text-left">Bank</label>
+            <div class="col-sm-9">
+                <select class="js-example-basic-single form-control" id="bank_id" name="bank_id"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="account_no" class="col-sm-3 control-label text-left">Account No.</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="account_no" name="account_no" value="@Model.account_no">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="account_name" class="col-sm-3 control-label text-left">Account Name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="account_name" name="account_name" value="@Model.account_name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9 col-lg-offset-3">
+                <button type="submit" class="btn btn-success">
+                    @title_btn_submit
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+@section Scripts {
+    <script>
+        var table;
+        var _host = "";
+
+        $(function () {
+
+            $.get(_host + "/Supplier/GetListBanks", function (res) {
+                var sel = $("#bank_id").select2({
+                    data: res.data
+                });
+                sel.val('@Model.bank_id').trigger("change");
+            });
+
+            $("#form").validate({
+                rules: {
+                    supplier_name: { required: true },
+                    phone: { required: true },
+                    email: { required: true }
+                },
+                highlight: function (element) { // hightlight error inputs
+                    $(element).closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element).closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+                submitHandler: function (e) {
+                    console.log($("#form").serialize());
+
+                    $.post(_host + "/Supplier/SupplierUpdate", $("#form").serialize(), function (res) {
+                        console.log("res", res);
+                        if (res.status == true) {
+                            location.href = _host + "/Supplier";
+                        }
+                    });
+                }
+            });
+
+
+
+        });
+    </script>
+}
+

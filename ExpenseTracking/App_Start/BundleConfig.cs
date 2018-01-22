@@ -30,6 +30,7 @@ namespace ExpenseTracking
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
+                      //"~/Content/bootstrap/css/bootstrap.css",
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/DataTables/css/jquery.dataTables.min.css",
